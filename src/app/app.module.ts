@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { GenericDialogService } from './shared/generic-dialog/services/generic-dialog.service';
 import { GenericDialogFactoryService } from './shared/generic-dialog/services/generic-dialog-factory.service';
@@ -17,8 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     declarations: [
         AppComponent,
         LoginComponent,
-        HomeComponent,
-        HeaderComponent
+        HomeComponent
     ],
     providers: [
       GenericDialogService,

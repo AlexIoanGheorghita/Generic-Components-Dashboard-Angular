@@ -1,13 +1,15 @@
 import { NgModule } from "@angular/core";
 import { GenericDialogModule } from "./generic-dialog/generic-dialog.module";
+import { HeaderComponent } from "./header/header.component";
 
 @NgModule({
   imports: [
     GenericDialogModule
   ],
-  declarations: [],
+  declarations: [HeaderComponent],
   exports: [
-    GenericDialogModule
+    GenericDialogModule,
+    HeaderComponent
   ]
 })
 export class SharedModule {
