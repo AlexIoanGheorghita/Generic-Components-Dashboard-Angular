@@ -1,0 +1,10 @@
+<span (click)="onNoClick()">X</span>
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <ng-container
+    [ngTemplateOutlet]="data.template"
+    [ngTemplateOutletContext]="data.context || null"
+    >
+  </ng-container>
+</div>
+
