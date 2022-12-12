@@ -19,6 +19,7 @@
         <span class="error" *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched">Password is not valid</span>
       </div>
     </div>
-    <button [disabled]="!loginForm.valid">Log In</button>
+    <span class="error" *ngIf="errorMessage">{{ errorMessage.message }}</span>
+    <button [disabled]="!loginForm.valid" (click)="login(loginForm.value)">Log In</button>
   </form>
 </div>
