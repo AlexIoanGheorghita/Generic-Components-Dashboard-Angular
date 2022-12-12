@@ -5,10 +5,16 @@
         Home
       </li>
     </a>
-    <a>
+    <a (click)="openDialog()">
       <li>
         Log Out
       </li>
     </a>
   </ul>
 </header>
+
+<ng-template #itemTemplate>
+  <p>Are you sure you want to log out?</p>
+  <button mat-button (click)="logout()">Yes</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</ng-template>
