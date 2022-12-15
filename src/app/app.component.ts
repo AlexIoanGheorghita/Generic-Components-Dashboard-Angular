@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { first, last } from 'rxjs';
 import { AuthService } from './shared/auth/auth.service';
 import { HeaderService } from './shared/header/services/header.service';
 
@@ -16,12 +17,17 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private location: Location,
-    private headerService: HeaderService
+    private router: Router
    ) {}
 
   ngOnInit() {
     this.authService.autoLogin();
 
-    this.currentPath = this.location.path();
+    this.router.events.pipe().subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentPath = this.location.path();
+        console.log(this.currentPath);
+      }
+    })
   }
 }
