@@ -18,10 +18,12 @@ export class StarWarsService {
     }
 
     setItems(items: GenericObject[]) {
+        let list = [];
         for (let item of items) {
             let newItem = this.configureProperties(item);
-            this.itemsList.push(newItem);
+            list.push(newItem);
         }
+        this.itemsList = [...list];
     }
 
     getItems(): Person[] {
