@@ -1,12 +1,19 @@
 <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container *ngFor="let column of newColumns" [matColumnDef]="column">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
-            <td mat-cell *matCellDef="let item">{{ item[column.toLowerCase()] }}</td>
+        <ng-container *ngFor="let column of newColumns" [matColumnDef]="column.name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</th>
+          <ng-container [ngSwitch]="column.colType">
+            <ng-container *ngSwitchCase="'data'">
+              <td mat-cell *matCellDef="let item">{{ item[column.name.toLowerCase()] }}</td>
+            </ng-container>
+            <ng-container *ngSwitchCase="'button'">
+              <td mat-cell *matCellDef="let item"><button mat-button>Click Me</button></td>
+            </ng-container>
+          </ng-container>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="newColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: newColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="newColumns | getvalue:0"></tr>
+        <tr mat-row *matRowDef="let row; columns: newColumns | getvalue:0;"></tr>
 
         <!-- <tr *matNoDataRow>
             <td [attr.colspan]="columns.length">No data to display</td>
