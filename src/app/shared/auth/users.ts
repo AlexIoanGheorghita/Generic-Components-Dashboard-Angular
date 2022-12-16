@@ -7,6 +7,7 @@ export const users: User[] = [
     },
     {
         email: "user2@bearingpoint.com",
-        password: "R&%VfbV67f3l"
+        password: "R&%VfbV67f3l",
+        role: "admin"
     }
 ]

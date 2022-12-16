@@ -7,7 +7,6 @@ import { users } from "./users";
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     foundUser: User;
-    role: string | undefined;
     user = new BehaviorSubject<LoggedInUser | null>(null);
     loginError = new BehaviorSubject<LoginError | null>(null);
 
@@ -24,9 +23,9 @@ export class AuthService {
         if (!this.foundUser) {
             this.loginError.next({ message: 'Email and password mismatch' });
         } else {
-            this.role = this.foundUser.role;
-            this.saveToLocalStorage(<LoggedInUser>this.foundUser);
-            this.user.next(<LoggedInUser>this.foundUser);
+            let loggedUser: LoggedInUser = { email: this.foundUser.email, role: this.foundUser.role };
+            this.saveToLocalStorage(loggedUser);
+            this.user.next(loggedUser);
             this.router.navigate(['/']);
         }
     }
@@ -46,8 +45,8 @@ export class AuthService {
         this.user.next(loadedUser);
     }
 
-    get Role() {
-        return this.role;
+    getRole() {
+        return JSON.parse(<string>localStorage.getItem('user'))['role'];
     }
 
     private saveToLocalStorage(details: LoggedInUser): void {
