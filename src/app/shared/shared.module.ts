@@ -8,9 +8,11 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { MatSortModule } from "@angular/material/sort";
+import { GenericTableModule } from "./generic-table/generic-table.module";
 
 @NgModule({
   imports: [
+    GenericTableModule,
     GenericDialogModule,
     MatTableModule,
     MatPaginatorModule,
@@ -18,15 +20,15 @@ import { MatSortModule } from "@angular/material/sort";
     HttpClientModule,
     CommonModule
   ],
-  declarations: [HeaderComponent, GenericInputComponent, GenericTableComponent],
+  declarations: [HeaderComponent, GenericInputComponent],
   exports: [
+    GenericTableModule,
     GenericDialogModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     HttpClientModule,
-    HeaderComponent,
-    GenericTableComponent
+    HeaderComponent
   ]
 })
 export class SharedModule {
