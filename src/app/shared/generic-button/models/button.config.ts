@@ -1,8 +1,9 @@
 export interface ButtonConfig {
-    textColor: string,
+    color: string,
     backgroundColor: string,
     fontSize: number,
-    borderWidth: number,
-    borderStyle: string,
-    borderColor: string
+    borderWidth?: number,
+    borderStyle?: string,
+    borderColor?: string,
+    borderRadius?: number
 }

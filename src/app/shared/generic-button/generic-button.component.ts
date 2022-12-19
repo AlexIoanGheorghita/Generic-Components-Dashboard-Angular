@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ButtonConfig } from './models/button.config';
 import { Button } from './models/button.model';
+import { DEFAULT_STYLES } from './models/default-styles.const';
 
-type CustomObject = {[key: string]: string | number};
+type CustomObject = {[key: string]: string | number | undefined};
 
 @Component({
   selector: 'app-generic-button',
@@ -12,8 +13,14 @@ type CustomObject = {[key: string]: string | number};
 export class GenericButtonComponent {
   @Input() set buttonConfig(data: Button) {
     this.btnStyles = this.styleButton(data.config);
+    this.defaultConfig = data;
   };
   btnStyles: CustomObject;
+  defaultConfig: Button = {
+    text: '',
+    config: DEFAULT_STYLES,
+    action: () => {}
+  };
 
   constructor() {}
 
