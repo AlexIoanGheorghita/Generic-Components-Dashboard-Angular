@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Subject, Observable } from "rxjs";
 import { Person } from "../models/star-wars-person.model";
 import { Hobbies } from "../models/hobbies.enum";
 
@@ -10,28 +10,39 @@ type GenericObject = {[key: string]: any};
 export class StarWarsService {
     private baseUrl: string = "https://swapi.dev/api";
     private itemsList: Person[] = [];
+    starWarsList = new Subject<Person[]>();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+      this.init('/people').subscribe(items => {
+        this.setItems(items['results']);
+      });
+    }
 
-    init(itemType: string): Observable<GenericObject> {
+    getItems(): Person[] {
+      return this.itemsList;
+    }
+
+    getItem(id: number): Person {
+      return this.itemsList[id-1];
+    }
+
+    deleteItem(id: number): void {
+      this.itemsList.splice(id-1, 1);
+      this.starWarsList.next(this.itemsList.slice());
+    }
+
+    private init(itemType: string): Observable<GenericObject> {
         return this.http.get<{[key: string]: any}>(this.baseUrl + itemType);
     }
 
-    setItems(items: GenericObject[]) {
+    private setItems(items: GenericObject[]) {
         let list = [];
         for (let item of items) {
             let newItem = this.configureProperties(item);
             list.push(newItem);
         }
         this.itemsList = [...list];
-    }
-
-    getItems(): Person[] {
-        return this.itemsList;
-    }
-
-    getItem(id: number): Person {
-        return this.itemsList[id];
+        this.starWarsList.next(this.itemsList.slice());
     }
 
     private getId(item: GenericObject): number {
