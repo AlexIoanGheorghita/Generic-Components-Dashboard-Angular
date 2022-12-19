@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Subject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, ReplaySubject, Subject, Subscription } from "rxjs";
 import { Person } from "../models/star-wars-person.model";
 import { Hobbies } from "../models/hobbies.enum";
 
@@ -13,29 +13,40 @@ export class StarWarsService {
     starWarsList = new Subject<Person[]>();
 
     constructor(private http: HttpClient) {
-      this.init('/people').subscribe(items => {
-        this.setItems(items['results']);
-      });
+      const localStorageList = JSON.parse(<string>localStorage.getItem('list'));
+      if (!localStorageList) {
+        localStorage.setItem('list', JSON.stringify(this.itemsList));
+      } else {
+        this.itemsList = localStorageList;
+      }
     }
 
     getItems(): Person[] {
-      return this.itemsList;
+      console.log(this.itemsList);
+      return this.itemsList.slice();
     }
 
-    getItem(id: number): Person {
-      return this.itemsList[id-1];
+    getItem(id: number): Person | undefined {
+      return this.itemsList.find(item => {
+        return +item.id === id
+      });
     }
 
     deleteItem(id: number): void {
-      this.itemsList.splice(id-1, 1);
+      console.log(id);
+      this.itemsList = this.itemsList.filter(item => {
+        return item.id !== id
+      });
+      console.log(this.itemsList);
+      localStorage.setItem('list', JSON.stringify(this.itemsList));
       this.starWarsList.next(this.itemsList.slice());
     }
 
-    private init(itemType: string): Observable<GenericObject> {
+    init(itemType: string): Observable<GenericObject> {
         return this.http.get<{[key: string]: any}>(this.baseUrl + itemType);
     }
 
-    private setItems(items: GenericObject[]) {
+    setItems(items: GenericObject[]) {
         let list = [];
         for (let item of items) {
             let newItem = this.configureProperties(item);
@@ -43,6 +54,8 @@ export class StarWarsService {
         }
         this.itemsList = [...list];
         this.starWarsList.next(this.itemsList.slice());
+        localStorage.setItem('list', JSON.stringify(this.itemsList));
+        console.log(this.itemsList);
     }
 
     private getId(item: GenericObject): number {
