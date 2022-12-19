@@ -1,10 +1,14 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-    name: 'getkey'
+    name: 'getkeys'
 })
-export class GetKeyPipe implements PipeTransform {
-  transform(value: Object, index: number): string {
-    return Object.keys(value)[index];
+export class GetKeysPipe implements PipeTransform {
+  transform(value: Object | undefined): string[] {
+    if (value === undefined) {
+      return [];
+    } else {
+      return Object.keys(value);
+    }
   }
 }
