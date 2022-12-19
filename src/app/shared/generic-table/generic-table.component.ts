@@ -3,6 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColumnObject } from './models/column-object.enum';
+import { Button } from '../generic-button/models/button.model';
 
 @Component({
   selector: 'app-generic-table',
@@ -18,10 +19,13 @@ export class GenericTableComponent {
   @Input() set columns(columnData: ColumnObject[]) {
     this.newColumns = this.configureColumns(columnData);
   };
-  @Input() service: any;
+  @Input() set extraConfig(config: any) {
+    this.config = config;
+  }
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   newColumns: ColumnObject[];
+  config: {[key: string]: any};
   dataSource: MatTableDataSource<any>;
 
   constructor() {}
