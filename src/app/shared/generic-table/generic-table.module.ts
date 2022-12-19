@@ -5,14 +5,12 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { GenericButtonModule } from "../generic-button/generic-button.module";
-import { GetKeyPipe } from "../pipes/getkey.pipe";
 import { GetValuePipe } from "../pipes/getvalue.pipe";
 import { GenericTableComponent } from "./generic-table.component";
 
 @NgModule({
   declarations: [
     GenericTableComponent,
-    GetKeyPipe,
     GetValuePipe
   ],
   imports: [
