@@ -1,33 +1,42 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { first, last } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from './shared/auth/auth.service';
-import { HeaderService } from './shared/header/services/header.service';
+import { StarWarsService } from './shared/services/star-wars.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'AngularExercise';
   currentPath: string;
+  private subscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private starWarsService: StarWarsService
    ) {}
 
   ngOnInit() {
     this.authService.autoLogin();
 
-    this.router.events.pipe().subscribe(event => {
+    this.subscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentPath = this.location.path();
-        console.log(this.currentPath);
       }
-    })
+    });
+
+    this.subscription.add(this.starWarsService.init('/people').subscribe(items => {
+      this.starWarsService.setItems(items['results']);
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
