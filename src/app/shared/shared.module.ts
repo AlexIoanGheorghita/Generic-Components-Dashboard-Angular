@@ -9,6 +9,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { MatSortModule } from "@angular/material/sort";
 import { GenericTableModule } from "./generic-table/generic-table.module";
+import { GetKeysPipe } from "./pipes/getkey.pipe";
 
 @NgModule({
   imports: [
@@ -20,7 +21,11 @@ import { GenericTableModule } from "./generic-table/generic-table.module";
     HttpClientModule,
     CommonModule
   ],
-  declarations: [HeaderComponent, GenericInputComponent],
+  declarations: [
+    HeaderComponent,
+    GenericInputComponent,
+    GetKeysPipe
+  ],
   exports: [
     GenericTableModule,
     GenericDialogModule,
@@ -28,7 +33,8 @@ import { GenericTableModule } from "./generic-table/generic-table.module";
     MatPaginatorModule,
     MatSortModule,
     HttpClientModule,
-    HeaderComponent
+    HeaderComponent,
+    GetKeysPipe
   ]
 })
 export class SharedModule {
