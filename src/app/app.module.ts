@@ -11,12 +11,14 @@ import { GenericDialogService } from './shared/generic-dialog/services/generic-d
 import { GenericDialogFactoryService } from './shared/generic-dialog/services/generic-dialog-factory.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        HomeComponent
+        HomeComponent,
+        DetailsComponent
     ],
     providers: [
       GenericDialogService,
