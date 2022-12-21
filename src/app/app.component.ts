@@ -20,7 +20,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private location: Location,
     private router: Router,
     private starWarsService: StarWarsService
-   ) {}
+   ) {
+    console.log('App component constructor');
+   }
 
   ngOnInit() {
     this.authService.autoLogin();
@@ -31,12 +33,13 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscription.add(this.starWarsService.init('/people').subscribe(items => {
-      this.starWarsService.setItems(items['results']);
-    }));
+    // this.subscription.add(this.starWarsService.init('/people').subscribe(items => {
+    //   this.starWarsService.setItems(items['results']);
+    // }));
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.starWarsService.clearList();
   }
 }

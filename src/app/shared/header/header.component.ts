@@ -3,6 +3,7 @@ import { delay, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { GenericDialogFactoryService } from 'src/app/shared/generic-dialog/services/generic-dialog-factory.service';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/services/generic-dialog.service';
+import { StarWarsService } from '../services/star-wars.service';
 import { HeaderService } from './services/header.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private dialogFactoryService: GenericDialogFactoryService,
     private authService: AuthService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private starWarsService: StarWarsService
   ) {}
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.starWarsService.clearList();
     this.authService.logout();
     this.closeDialog();
   }
