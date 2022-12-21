@@ -6,6 +6,7 @@ export enum EyeColor {
     GRAY = 'gray',
     HAZEL = 'hazel',
     RED = 'red',
+    YELLOW = 'yellow',
     UNKNOWN = 'unknown',
     NOTAPPLICABLE = 'n/a'
 }
