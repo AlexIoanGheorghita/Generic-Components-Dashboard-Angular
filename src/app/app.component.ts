@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { AuthService } from './shared/auth/auth.service';
 import { StarWarsService } from './shared/services/star-wars.service';
 
@@ -33,9 +33,20 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    // this.subscription.add(this.starWarsService.init('/people').subscribe(items => {
-    //   this.starWarsService.setItems(items['results']);
-    // }));
+    let list = JSON.parse(<string>localStorage.getItem('list'));
+
+    if (!list || list.length === 0) {
+      (async () => {
+        try {
+          const items = await lastValueFrom(this.starWarsService.init('/people'));
+          this.starWarsService.setItems(items['results']);
+        } catch (err) {
+          console.log(err);
+        }
+      })()
+    } else {
+      this.starWarsService.starWarsList.next(list);
+    }
   }
 
   ngOnDestroy(): void {

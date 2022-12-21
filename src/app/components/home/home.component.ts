@@ -32,17 +32,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.headerService.title.next('Home');
 
-    this.timeoutToken = setTimeout(() => {
-      this.data = this.starWarsService.getItems();
-      this.columns = this.configureColumns();
-      this.btnConfig = this.configureButtons();
-      this.isLoading = false;
-    }, 200);
+    // this.timeoutToken = setTimeout(() => {
+    //   this.data = this.starWarsService.getItems();
+    //   this.columns = this.configureColumns();
+    //   this.btnConfig = this.configureButtons();
+    //   this.isLoading = false;
+    // }, 200);
 
     this.subscription = this.starWarsService.starWarsList.subscribe(list => {
       if (list.length > 0) {
         this.isLoading = false;
         this.data = list;
+        this.columns = this.configureColumns();
+        this.btnConfig = this.configureButtons();
       }
     });
   }

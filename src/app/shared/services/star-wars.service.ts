@@ -10,8 +10,8 @@ type GenericObject = {[key: string]: any};
 @Injectable({ providedIn: 'root' })
 export class StarWarsService {
     private baseUrl: string = "https://swapi.dev/api";
-    private itemsList: Person[] = PEOPLE_LIST;
-    starWarsList = new Subject<Person[]>();
+    private itemsList: Person[] = [];
+    starWarsList = new BehaviorSubject<Person[]>([]);
 
     constructor(private http: HttpClient) {
       const localStorageList = JSON.parse(<string>localStorage.getItem('list'));
