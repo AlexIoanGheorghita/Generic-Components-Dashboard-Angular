@@ -9,7 +9,12 @@ import { CommonModule } from "@angular/common";
 import { MatSortModule } from "@angular/material/sort";
 import { GenericTableModule } from "./generic-table/generic-table.module";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
 import { GetKeysPipe } from "./pipes/getkey.pipe";
+import { GenericSelectComponent } from './generic-select/generic-select.component';
+import { GenericFormModule } from "./generic-form/generic-form.module";
 
 @NgModule({
   imports: [
@@ -20,12 +25,15 @@ import { GetKeysPipe } from "./pipes/getkey.pipe";
     MatSortModule,
     HttpClientModule,
     CommonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    GenericFormModule
   ],
   declarations: [
     HeaderComponent,
-    GenericInputComponent,
-    GetKeysPipe
+    GetKeysPipe,
   ],
   exports: [
     GenericTableModule,
@@ -35,6 +43,10 @@ import { GetKeysPipe } from "./pipes/getkey.pipe";
     MatSortModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    GenericFormModule,
     HeaderComponent,
     GetKeysPipe
   ]
