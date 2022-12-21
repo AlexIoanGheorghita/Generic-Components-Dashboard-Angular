@@ -3,18 +3,23 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, ReplaySubject, Subject, Subscription } from "rxjs";
 import { Person } from "../models/star-wars-person.model";
 import { Hobbies } from "../models/hobbies.enum";
+import { PEOPLE_LIST } from "../models/people.const";
 
 type GenericObject = {[key: string]: any};
 
 @Injectable({ providedIn: 'root' })
 export class StarWarsService {
     private baseUrl: string = "https://swapi.dev/api";
-    private itemsList: Person[] = [];
+    private itemsList: Person[] = PEOPLE_LIST;
     starWarsList = new Subject<Person[]>();
 
     constructor(private http: HttpClient) {
       const localStorageList = JSON.parse(<string>localStorage.getItem('list'));
+      console.log(localStorageList);
       if (!localStorageList) {
+        // this.init('/people').subscribe(items => {
+        //   this.setItems(items['results']);
+        // })
         localStorage.setItem('list', JSON.stringify(this.itemsList));
       } else {
         this.itemsList = localStorageList;
@@ -22,7 +27,6 @@ export class StarWarsService {
     }
 
     getItems(): Person[] {
-      console.log(this.itemsList);
       return this.itemsList.slice();
     }
 
@@ -33,11 +37,9 @@ export class StarWarsService {
     }
 
     deleteItem(id: number): void {
-      console.log(id);
       this.itemsList = this.itemsList.filter(item => {
         return item.id !== id
       });
-      console.log(this.itemsList);
       localStorage.setItem('list', JSON.stringify(this.itemsList));
       this.starWarsList.next(this.itemsList.slice());
     }
@@ -55,7 +57,16 @@ export class StarWarsService {
         this.itemsList = [...list];
         this.starWarsList.next(this.itemsList.slice());
         localStorage.setItem('list', JSON.stringify(this.itemsList));
-        console.log(this.itemsList);
+    }
+
+    clearList(): void {
+      localStorage.removeItem('list');
+      this.itemsList = [];
+      this.starWarsList.next([]);
+    }
+
+    get LocalStorageList() {
+      return JSON.parse(<string>localStorage.getItem('list'));
     }
 
     private getId(item: GenericObject): number {
