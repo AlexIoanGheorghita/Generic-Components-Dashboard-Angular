@@ -1,1 +1,6 @@
-<app-generic-table [tableData]="data" [columns]="columns" [extraConfig]="btnConfig"></app-generic-table>
+<div class="spinner" *ngIf="isLoading; else showTable;">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #showTable>
+  <app-generic-table [tableData]="data" [columns]="columns" [extraConfig]="btnConfig"></app-generic-table>
+</ng-template>

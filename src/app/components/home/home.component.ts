@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { delay, last, Subscription, take, takeLast, tap } from 'rxjs';
+import { concat, concatMap, delay, last, Subscription, take, takeLast, tap } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Button } from 'src/app/shared/generic-button/models/button.model';
 import { ColumnObject } from 'src/app/shared/generic-table/models/column-object.enum';
@@ -19,7 +19,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   data: any[] = [];
   columns: ColumnObject[];
   btnConfig: ButtonObject;
+  isLoading: boolean = true;
   private subscription: Subscription;
+  timeoutToken: any;
 
   constructor(
     private headerService: HeaderService,
@@ -30,14 +32,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.headerService.title.next('Home');
 
-    // this.data = this.starWarsService.getItems();
-    // this.columns = this.configureColumns();
-    // this.btnConfig = this.configureButtons();
-
-    this.subscription = this.starWarsService.starWarsList.subscribe(list => {
-      this.data = list;
+    this.timeoutToken = setTimeout(() => {
+      this.data = this.starWarsService.getItems();
       this.columns = this.configureColumns();
       this.btnConfig = this.configureButtons();
+      this.isLoading = false;
+    }, 200);
+
+    this.subscription = this.starWarsService.starWarsList.subscribe(list => {
+      if (list.length > 0) {
+        this.isLoading = false;
+        this.data = list;
+      }
     });
   }
 
@@ -88,5 +94,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    clearTimeout(this.timeoutToken);
   }
 }
