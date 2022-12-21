@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,11 +10,9 @@ import { Button } from '../generic-button/models/button.model';
   templateUrl: './generic-table.component.html',
   styleUrls: ['./generic-table.component.scss']
 })
-export class GenericTableComponent {
+export class GenericTableComponent implements AfterViewInit {
   @Input() set tableData(data: any[]) {
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   };
   @Input() set columns(columnData: ColumnObject[]) {
     this.newColumns = this.configureColumns(columnData);
@@ -30,6 +28,11 @@ export class GenericTableComponent {
 
   constructor() {}
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
   private configureColumns(columnData: ColumnObject[]): ColumnObject[] {
     let columns: ColumnObject[] = [];
 
@@ -43,4 +46,6 @@ export class GenericTableComponent {
 
     return columns;
   }
+
+  // implement ngAfterViewInit()
 }
