@@ -1,0 +1,16 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ inputConfig.title }}</mat-label>
+  <input
+    [type]="inputConfig.fieldDataType ?? 'text'"
+    [required]="inputConfig.required"
+    [disabled]="inputConfig.disabled"
+    [placeholder]="inputConfig.placeholder"
+    [name]="inputConfig.formFieldId"
+    [value]="inputConfig.value"
+    matInput>
+</mat-form-field>
+<ng-container *ngFor="let validation of inputConfig.validations">
+  <ng-container *ngIf="validation.errorMessage">
+    <p class="error">{{ validation.errorMessage }}</p>
+  </ng-container>
+</ng-container>
