@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { GenericDialogModule } from "./generic-dialog/generic-dialog.module";
 import { MatTableModule } from '@angular/material/table';
 import { HeaderComponent } from "./header/header.component";
-import { GenericInputComponent } from './generic-input/generic-input.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
@@ -13,7 +12,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { GetKeysPipe } from "./pipes/getkey.pipe";
-import { GenericSelectComponent } from './generic-select/generic-select.component';
 import { GenericFormModule } from "./generic-form/generic-form.module";
 
 @NgModule({
@@ -33,7 +31,7 @@ import { GenericFormModule } from "./generic-form/generic-form.module";
   ],
   declarations: [
     HeaderComponent,
-    GetKeysPipe,
+    GetKeysPipe
   ],
   exports: [
     GenericTableModule,
