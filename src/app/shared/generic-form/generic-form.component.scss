@@ -1,0 +1,17 @@
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+}
+
+form {
+  border: 1px solid #CCCCCC;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.actions-wrapper {
+  margin: 1rem;
+}

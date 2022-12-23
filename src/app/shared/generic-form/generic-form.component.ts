@@ -24,7 +24,7 @@ export class GenericFormComponent implements OnInit {
       // });
 
       this.formConfiguration.formGroup.addControl(
-        field.title,
+        field.formFieldId,
         field.formControl
       );
     }
