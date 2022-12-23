@@ -29,6 +29,6 @@ export interface GenericFormField {
 }
 
 export interface FormFieldValidation {
-  validationType: ValidatorFn,
+  validationType: string,
   errorMessage: string
 }

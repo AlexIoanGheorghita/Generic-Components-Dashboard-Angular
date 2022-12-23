@@ -1,8 +1,8 @@
 export enum InputDataTypes {
     TEXT = "text",
     NUMBER = "number",
-    DATE = "date",
+    DATE = 'date',
+    CHECKBOX = 'checkbox',
     PASSWORD = "password",
-    EMAIL = "email",
-    RADIO = "radio"
+    EMAIL = "email"
 }
