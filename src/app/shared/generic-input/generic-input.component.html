@@ -1,16 +1,23 @@
-<mat-form-field appearance="outline">
-  <mat-label>{{ inputConfig.title }}</mat-label>
-  <input
-    [type]="inputConfig.fieldDataType ?? 'text'"
-    [required]="inputConfig.required"
-    [disabled]="inputConfig.disabled"
-    [placeholder]="inputConfig.placeholder"
-    [name]="inputConfig.formFieldId"
-    [value]="inputConfig.value"
-    matInput>
-</mat-form-field>
-<ng-container *ngFor="let validation of inputConfig.validations">
-  <ng-container *ngIf="validation.errorMessage">
-    <p class="error">{{ validation.errorMessage }}</p>
+<div>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ inputConfig.title }}</mat-label>
+    <ng-container *ngIf="inputConfig.fieldDataType === 'date'; else normalInput">
+      <input matInput [matDatepicker]="picker" [formControl]="control">
+      <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </ng-container>
+    <ng-template #normalInput>
+      <input
+        [type]="inputConfig.fieldDataType ?? 'text'"
+        [placeholder]="inputConfig.placeholder"
+        [name]="inputConfig.formFieldId"
+        [value]="inputConfig.value"
+        [formControl]="control"
+        matInput>
+    </ng-template>
+  </mat-form-field>
+  <ng-container *ngIf="(control.touched || control.dirty) && control.invalid">
+    <p class="error">{{ errorMessage }}</p>
   </ng-container>
-</ng-container>
+</div>
