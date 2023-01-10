@@ -36,6 +36,12 @@ export class StarWarsService {
       });
     }
 
+    addItem(item: Person) {
+      this.itemsList = [...this.itemsList, { ...item, id: this.generateId() }];
+      localStorage.setItem('list', JSON.stringify(this.itemsList));
+      this.starWarsList.next(this.itemsList.slice());
+    }
+
     deleteItem(id: number): void {
       this.itemsList = this.itemsList.filter(item => {
         return item.id !== id
@@ -71,6 +77,12 @@ export class StarWarsService {
 
     private getId(item: GenericObject): number {
         return +item['url'].split('/')[5];
+    }
+
+    private generateId(): number {
+      const lastIdInList = this.itemsList[this.itemsList.length - 1].id;
+
+      return lastIdInList + 1;
     }
 
     private configureProperties(item: GenericObject): Person {
