@@ -8,7 +8,12 @@
       </ng-container>
     </ng-container>
     <div class="actions-wrapper">
-      <app-generic-button *ngFor="let button of formConfiguration.formActions" [buttonConfig]="button"></app-generic-button>
+      <app-generic-button
+        *ngFor="let button of formConfiguration.formActions"
+        [buttonConfig]="button"
+        [disabled]="formConfiguration.formGroup.invalid"
+        >
+      </app-generic-button>
     </div>
   </form>
 </div>

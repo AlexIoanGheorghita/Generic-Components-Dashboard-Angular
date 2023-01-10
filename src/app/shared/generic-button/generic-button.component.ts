@@ -16,6 +16,7 @@ export class GenericButtonComponent {
     this.defaultConfig = data;
   };
   @Input() hostData: any;
+  @Input() disabled: boolean;
   btnStyles: CustomObject;
   defaultConfig: Button = {
     text: '',
