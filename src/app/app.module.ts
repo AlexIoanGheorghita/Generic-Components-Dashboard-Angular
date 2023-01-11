@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './components/details/details.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
     declarations: [
