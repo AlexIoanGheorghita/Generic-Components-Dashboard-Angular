@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { concat, concatMap, delay, last, Subscription, take, takeLast, tap } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Button } from 'src/app/shared/generic-button/models/button.model';
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private headerService: HeaderService,
     private starWarsService: StarWarsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -74,8 +76,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           fontSize: 16,
           borderRadius: 5
         },
-        action: () => {
-          console.log('Edit');
+        action: (data: Person) => {
+          this.router.navigate(['/items', data.id, 'edit']);
         }
       },
       'Delete':
