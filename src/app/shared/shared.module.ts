@@ -13,6 +13,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { GetKeysPipe } from "./pipes/getkey.pipe";
 import { GenericFormModule } from "./generic-form/generic-form.module";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { GenericFormModule } from "./generic-form/generic-form.module";
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    GenericFormModule
+    GenericFormModule,
+    RouterModule
   ],
   declarations: [
     HeaderComponent,
