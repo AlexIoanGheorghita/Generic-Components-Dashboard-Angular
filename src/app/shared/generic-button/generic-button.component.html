@@ -1,6 +1,6 @@
 <button
     mat-button
-    (click)="defaultConfig.action(hostData)"
+    (click)="onClick($event, hostData)"
     [ngStyle]="btnStyles"
     [disabled]="disabled"
     >{{ defaultConfig.text }}

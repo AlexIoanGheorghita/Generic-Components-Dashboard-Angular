@@ -26,6 +26,11 @@ export class GenericButtonComponent {
 
   constructor() {}
 
+  onClick(event: MouseEvent, data: any) {
+    event.stopPropagation();
+    this.defaultConfig.action(data);
+  }
+
   private styleButton(config: ButtonConfig): CustomObject {
     const obj: CustomObject = {};
 
