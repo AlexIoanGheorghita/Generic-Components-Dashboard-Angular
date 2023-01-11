@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './components/details/details.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { AddItemComponent } from './components/add-item/add-item.component';
         LoginComponent,
         HomeComponent,
         DetailsComponent,
-        AddItemComponent
+        AddItemComponent,
+        EditItemComponent
     ],
     providers: [
       GenericDialogService,
