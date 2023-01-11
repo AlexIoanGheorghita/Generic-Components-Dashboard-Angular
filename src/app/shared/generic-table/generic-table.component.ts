@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColumnObject } from './models/column-object.enum';
 import { Button } from '../generic-button/models/button.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-generic-table',
@@ -26,11 +27,19 @@ export class GenericTableComponent implements AfterViewInit {
   config: {[key: string]: any};
   dataSource: MatTableDataSource<any>;
 
-  constructor() {}
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
+    this.changeDetector.detectChanges();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  onClick(row: any): void {
+    this.router.navigate([`/items/${row.id}`]);
   }
 
   private configureColumns(columnData: ColumnObject[]): ColumnObject[] {
@@ -46,6 +55,4 @@ export class GenericTableComponent implements AfterViewInit {
 
     return columns;
   }
-
-  // implement ngAfterViewInit()
 }
