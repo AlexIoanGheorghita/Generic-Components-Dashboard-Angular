@@ -1,8 +1,10 @@
-<h2>{{ itemDetails.name }}</h2>
-<h3>Person</h3>
-<hr>
-<ul>
-  <ng-container *ngFor="let item of itemDetails | getkeys">
-    <li><span>{{ item }}:</span> {{ itemDetails[item] }}</li>
-  </ng-container>
-</ul>
+<div>
+  <h2>{{ itemDetails.name }}</h2>
+  <h3>Person</h3>
+  <hr>
+  <ul>
+    <ng-container *ngFor="let item of itemDetails | getkeys">
+      <li><span>{{ item }}:</span> {{ itemDetails[item] }}</li>
+    </ng-container>
+  </ul>
+</div>
