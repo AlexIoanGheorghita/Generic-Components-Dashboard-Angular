@@ -16,7 +16,7 @@ export interface GenericFormField {
   formControl: FormControl,
   title: string,
   placeholder: string,
-  value?: string,
+  value?: string | number | string[],
   required: boolean,
   disabled: boolean,
   validations: FormFieldValidation[],
