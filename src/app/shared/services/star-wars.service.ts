@@ -15,11 +15,7 @@ export class StarWarsService {
 
     constructor(private http: HttpClient) {
       const localStorageList = JSON.parse(<string>localStorage.getItem('list'));
-      console.log(localStorageList);
       if (!localStorageList) {
-        // this.init('/people').subscribe(items => {
-        //   this.setItems(items['results']);
-        // })
         localStorage.setItem('list', JSON.stringify(this.itemsList));
       } else {
         this.itemsList = localStorageList;
@@ -36,8 +32,22 @@ export class StarWarsService {
       });
     }
 
-    addItem(item: Person) {
+    addItem(item: Person): void {
       this.itemsList = [...this.itemsList, { ...item, id: this.generateId() }];
+      localStorage.setItem('list', JSON.stringify(this.itemsList));
+      this.starWarsList.next(this.itemsList.slice());
+    }
+
+    updateItem(id: number, newItem: Person): void {
+      let updatedList = this.itemsList.map((item) => {
+        if (item.id === id) {
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      this.itemsList = updatedList;
       localStorage.setItem('list', JSON.stringify(this.itemsList));
       this.starWarsList.next(this.itemsList.slice());
     }
