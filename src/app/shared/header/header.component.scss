@@ -22,7 +22,6 @@ nav {
     height: inherit;
     width: inherit;
     display: flex;
-    justify-content: space-between;
 
     a {
       display: flex;
@@ -38,6 +37,10 @@ nav {
         font-weight: 300;
         font-size: 0.9rem;
       }
+    }
+
+    a:nth-child(2) {
+      margin-right: auto;
     }
 
     a.active-link {

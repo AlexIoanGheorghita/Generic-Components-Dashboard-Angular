@@ -8,6 +8,11 @@
         Home
       </li>
     </a>
+    <a *ngIf="role === 'admin'" [routerLink]="['/item', 'add']" routerLinkActive="active-link">
+      <li>
+        Add person
+      </li>
+    </a>
     <a (click)="openDialog()">
       <li>
         Log Out

@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dialog: GenericDialogService;
   subscription: Subscription;
   headerTitle: string = '';
+  role: string = '';
 
   constructor(
     private dialogFactoryService: GenericDialogFactoryService,
@@ -25,9 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.role = this.authService.getRole();
+
     this.subscription = this.headerService.title.pipe(delay(0)).subscribe(value => {
       this.headerTitle = value;
-      console.log(this.headerTitle)
     })
   }
 
