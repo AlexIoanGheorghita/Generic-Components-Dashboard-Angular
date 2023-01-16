@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective } from '@angular/forms';
 import { GenericFormField } from '../models/input.model';
@@ -5,7 +6,8 @@ import { GenericFormField } from '../models/input.model';
 @Component({
   selector: 'app-generic-radio',
   templateUrl: './generic-radio.component.html',
-  styleUrls: ['./generic-radio.component.scss']
+  styleUrls: ['./generic-radio.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GenericRadioComponent implements OnInit {
   @Input() radioConfig: GenericFormField;

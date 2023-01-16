@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroupDirective } from '@angular/forms';
 import { distinctUntilChanged, Subscription } from 'rxjs';
 import { GenericFormField } from '../models/input.model';
@@ -6,7 +6,8 @@ import { GenericFormField } from '../models/input.model';
 @Component({
   selector: 'app-generic-select',
   templateUrl: './generic-select.component.html',
-  styleUrls: ['./generic-select.component.scss']
+  styleUrls: ['./generic-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GenericSelectComponent implements OnInit, OnDestroy {
   @Input() selectConfig: GenericFormField;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ButtonConfig } from './models/button.config';
 import { Button } from './models/button.model';
 import { DEFAULT_STYLES } from './models/default-styles.const';
@@ -8,7 +8,8 @@ type CustomObject = {[key: string]: string | number | undefined};
 @Component({
   selector: 'app-generic-button',
   templateUrl: './generic-button.component.html',
-  styleUrls: ['./generic-button.component.scss']
+  styleUrls: ['./generic-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GenericButtonComponent {
   @Input() set buttonConfig(data: Button) {
