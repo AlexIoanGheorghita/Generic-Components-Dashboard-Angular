@@ -4,6 +4,7 @@ import { FORM_CONFIGURATION } from 'src/app/shared/models/form-configuration.con
 import { StarWarsService } from 'src/app/shared/services/star-wars.service';
 import { HeaderService } from 'src/app/shared/header/services/header.service';
 import { Person } from 'src/app/shared/models/star-wars-person.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-item',
@@ -15,11 +16,14 @@ export class AddItemComponent implements OnInit{
 
   constructor(
     private starWarsService: StarWarsService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.headerService.title.next('Add a person');
+
+    this.emptyFields(this.formConfig);
 
     this.formConfig.formActions = [
       {
@@ -36,8 +40,16 @@ export class AddItemComponent implements OnInit{
           const correctBirthYear = new Date(newPerson.birth_year).getFullYear();  // convert date + timezone into year
           newPerson = { ...newPerson, birth_year: correctBirthYear, height: +newPerson.height, mass: +newPerson.mass };
           this.starWarsService.addItem(newPerson as Person);
+
+          this.router.navigate(['/']);
         }
       }
     ]
+  }
+
+  private emptyFields(formConfig: GenericFormConfiguration) {
+    for (let field of formConfig.formFields) {
+      field.formControl.setValue(null);
+    }
   }
 }
