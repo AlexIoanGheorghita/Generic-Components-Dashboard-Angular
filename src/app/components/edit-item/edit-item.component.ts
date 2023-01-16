@@ -17,6 +17,7 @@ import { CanComponentDeactivate } from './save-changes.guard';
 })
 export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy, CanComponentDeactivate {
   formConfig: GenericFormConfiguration = FORM_CONFIGURATION;
+  config: GenericFormConfiguration;
   person: Person | undefined;
   errorMessage: string;
   private routeSub: Subscription;
@@ -67,6 +68,8 @@ export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy, CanC
             }
           ];
 
+          this.config = Object.assign({}, this.formConfig);
+
           console.log(this.formConfig);
         } else {
           this.errorMessage = 'This is not the record you are looking for';
@@ -107,6 +110,7 @@ export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy, CanC
 
   onLeavePage() {
     this.leavePage = true;
+    this.formConfig.formGroup.reset();
     this.router.navigate(['/']);
     this.onCancel();
   }

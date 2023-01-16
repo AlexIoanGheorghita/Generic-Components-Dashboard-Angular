@@ -1,4 +1,4 @@
-<app-generic-form [formConfiguration]="formConfig" *ngIf="!errorMessage; else error"></app-generic-form>
+<app-generic-form [formConfiguration]="config" *ngIf="!errorMessage; else error"></app-generic-form>
 <ng-template #error>
   <p class="error">{{ errorMessage }}</p>
 </ng-template>

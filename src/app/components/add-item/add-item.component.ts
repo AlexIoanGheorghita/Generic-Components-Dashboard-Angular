@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class AddItemComponent implements OnInit{
   formConfig: GenericFormConfiguration = FORM_CONFIGURATION;
+  config: GenericFormConfiguration;
 
   constructor(
     private starWarsService: StarWarsService,
@@ -44,12 +45,14 @@ export class AddItemComponent implements OnInit{
           this.router.navigate(['/']);
         }
       }
-    ]
+    ];
+
+    console.log(this.formConfig);
+
+    this.config = Object.assign({}, this.formConfig);
   }
 
   private emptyFields(formConfig: GenericFormConfiguration) {
-    for (let field of formConfig.formFields) {
-      field.formControl.setValue(null);
-    }
+    formConfig.formGroup.reset();
   }
 }
