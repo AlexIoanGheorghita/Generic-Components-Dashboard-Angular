@@ -2,3 +2,9 @@
 <ng-template #error>
   <p class="error">{{ errorMessage }}</p>
 </ng-template>
+
+<ng-template #popupTemplate>
+  <p>You have made changes but have not saved. Are you sure you want to continue?</p>
+  <button mat-button (click)="onLeavePage()">Yes</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</ng-template>

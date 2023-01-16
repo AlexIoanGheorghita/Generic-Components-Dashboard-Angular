@@ -1,28 +1,36 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router, UrlTree } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { GenericDialogFactoryService } from 'src/app/shared/generic-dialog/services/generic-dialog-factory.service';
+import { GenericDialogService } from 'src/app/shared/generic-dialog/services/generic-dialog.service';
 import { GenericFormConfiguration } from 'src/app/shared/generic-form/models/generic-form-configuration.model';
 import { HeaderService } from 'src/app/shared/header/services/header.service';
 import { FORM_CONFIGURATION } from 'src/app/shared/models/form-configuration.const';
 import { Person } from 'src/app/shared/models/star-wars-person.model';
 import { StarWarsService } from 'src/app/shared/services/star-wars.service';
+import { CanComponentDeactivate } from './save-changes.guard';
 
 @Component({
   selector: 'app-edit-item',
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.scss']
 })
-export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy, CanComponentDeactivate {
   formConfig: GenericFormConfiguration = FORM_CONFIGURATION;
   person: Person | undefined;
   errorMessage: string;
   private routeSub: Subscription;
+  private dialog: GenericDialogService;
+  saved: boolean = false;
+  leavePage: boolean = false;
+  @ViewChild('popupTemplate', { static: false }) popupTemplate: TemplateRef<any>;
 
   constructor(
     private starWarsService: StarWarsService,
     private headerService: HeaderService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialogFactoryService: GenericDialogFactoryService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +60,8 @@ export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
                 this.starWarsService.updateItem(this.person!.id, editedPersonDetails as Person);
 
+                this.saved = true;
+
                 this.router.navigate(['/']);
               }
             }
@@ -76,6 +86,33 @@ export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
+  }
+
+  canDeactivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    if (!this.formConfig.formGroup.pristine && !this.saved && !this.leavePage) {
+      this.dialog = this.dialogFactoryService.open(
+        {
+          title: 'Changes have not been saved',
+          template: this.popupTemplate
+        },
+        {
+          width: 300
+        }
+      );
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onLeavePage() {
+    this.leavePage = true;
+    this.router.navigate(['/']);
+    this.onCancel();
+  }
+
+  onCancel() {
+    this.dialog.close();
   }
 
   private populateFormFields(formConfig: GenericFormConfiguration, person: Person) {
