@@ -4,6 +4,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
+import { BrowserModule } from "@angular/platform-browser";
 import { GenericButtonModule } from "../generic-button/generic-button.module";
 import { GetValuePipe } from "../pipes/getvalue.pipe";
 import { GenericTableComponent } from "./generic-table.component";
@@ -14,6 +15,7 @@ import { GenericTableComponent } from "./generic-table.component";
     GetValuePipe
   ],
   imports: [
+    BrowserModule,
     CommonModule,
     MatTableModule,
     MatSortModule,

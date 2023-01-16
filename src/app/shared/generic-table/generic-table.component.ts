@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
-  styleUrls: ['./generic-table.component.scss']
+  styleUrls: ['./generic-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GenericTableComponent implements AfterViewInit {
+export class GenericTableComponent implements OnInit, AfterViewInit {
   @Input() set tableData(data: any[]) {
     this.dataSource = new MatTableDataSource(data);
   };
@@ -21,8 +22,16 @@ export class GenericTableComponent implements AfterViewInit {
   @Input() set extraConfig(config: any) {
     this.config = config;
   }
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+  private sort: MatSort;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.dataSource.sort = this.sort;
+  };
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.dataSource.paginator = this.paginator;
+  };
   newColumns: ColumnObject[];
   config: {[key: string]: any};
   dataSource: MatTableDataSource<any>;
@@ -32,10 +41,16 @@ export class GenericTableComponent implements AfterViewInit {
     private router: Router
   ) {}
 
+  ngOnInit(): void {
+    // this.changeDetector.detectChanges();
+  }
+
   ngAfterViewInit(): void {
-    this.changeDetector.detectChanges();
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    // setTimeout(() => {
+    //   this.dataSource.sort = this.sort;
+    //   this.dataSource.paginator = this.paginator;
+
+    // })
   }
 
   onClick(row: any): void {
