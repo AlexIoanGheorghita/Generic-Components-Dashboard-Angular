@@ -14,6 +14,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { GetKeysPipe } from "./pipes/getkey.pipe";
 import { GenericFormModule } from "./generic-form/generic-form.module";
 import { RouterModule } from "@angular/router";
+import { GenericChartComponent } from './generic-chart/generic-chart.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { RouterModule } from "@angular/router";
   ],
   declarations: [
     HeaderComponent,
-    GetKeysPipe
+    GetKeysPipe,
+    GenericChartComponent
   ],
   exports: [
     GenericTableModule,
