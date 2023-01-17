@@ -15,6 +15,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         ReactiveFormsModule,
         SharedModule,
         CommonModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgChartsModule
     ]
 })
 export class AppModule { }
