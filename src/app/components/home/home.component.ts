@@ -8,6 +8,9 @@ import { ColumnType } from 'src/app/shared/generic-table/models/column-type.enum
 import { Person } from 'src/app/shared/models/star-wars-person.model';
 import { StarWarsService } from 'src/app/shared/services/star-wars.service';
 import { HeaderService } from '../../shared/header/services/header.service';
+import { CHART_CONFIGURATION } from 'src/app/shared/models/chart-configuration.const';
+import { ChartConfig } from 'src/app/shared/generic-chart/models/chart-config.model';
+import { GenericChartService } from 'src/app/shared/generic-chart/services/generic-chart.service';
 
 type ButtonObject = {[key: string]: Button};
 
@@ -23,12 +26,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
   private subscription: Subscription;
   timeoutToken: any;
+  chartConfig: ChartConfig;
 
   constructor(
     private headerService: HeaderService,
     private starWarsService: StarWarsService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private chartService: GenericChartService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.data = list;
         this.columns = this.configureColumns();
         this.btnConfig = this.configureButtons();
+
+        this.chartService.setType('bar');
+        this.chartService.setLabels(this.data, 'name');
+        this.chartService.setDatasets(this.data, ['height']);
+        this.chartService.configureScaleTicks('y', 'm', 100);
+        this.chartConfig = this.chartService.getChartConfig();
+        console.log(this.chartConfig);
       }
     });
   }
