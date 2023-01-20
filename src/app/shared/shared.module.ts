@@ -14,7 +14,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { GetKeysPipe } from "./pipes/getkey.pipe";
 import { GenericFormModule } from "./generic-form/generic-form.module";
 import { RouterModule } from "@angular/router";
-import { GenericChartComponent } from './generic-chart/generic-chart.component';
+import { GenericChartModule } from './generic-chart/generic-chart.module';
+import { NgChartsModule } from "ng2-charts";
 
 @NgModule({
   imports: [
@@ -30,12 +31,13 @@ import { GenericChartComponent } from './generic-chart/generic-chart.component';
     MatFormFieldModule,
     MatSelectModule,
     GenericFormModule,
+    NgChartsModule,
+    GenericChartModule,
     RouterModule
   ],
   declarations: [
     HeaderComponent,
-    GetKeysPipe,
-    GenericChartComponent
+    GetKeysPipe
   ],
   exports: [
     GenericTableModule,
@@ -49,6 +51,8 @@ import { GenericChartComponent } from './generic-chart/generic-chart.component';
     MatFormFieldModule,
     MatSelectModule,
     GenericFormModule,
+    GenericChartModule,
+    NgChartsModule,
     HeaderComponent,
     GetKeysPipe
   ]
