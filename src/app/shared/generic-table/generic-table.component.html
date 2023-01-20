@@ -3,10 +3,10 @@
         <ng-container *ngFor="let column of newColumns" [matColumnDef]="column.name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</th>
           <ng-container [ngSwitch]="column.colType">
-            <ng-container *ngSwitchCase="'data'">
+            <ng-container *ngSwitchCase="ColumnType.DATA">
               <td mat-cell *matCellDef="let item">{{ item[column.name.toLowerCase()] }}</td>
             </ng-container>
-            <ng-container *ngSwitchCase="'button'">
+            <ng-container *ngSwitchCase="ColumnType.BUTTON">
               <td mat-cell *matCellDef="let item">
                 <app-generic-button [buttonConfig]="config[column.name]" [hostData]="item">
 

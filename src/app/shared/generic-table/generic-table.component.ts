@@ -3,6 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColumnObject } from './models/column-object.enum';
+import { ColumnType } from './models/column-type.enum';
 import { Button } from '../generic-button/models/button.model';
 import { Router } from '@angular/router';
 
@@ -55,6 +56,10 @@ export class GenericTableComponent implements OnInit, AfterViewInit {
 
   onClick(row: any): void {
     this.router.navigate([`/items/${row.id}`]);
+  }
+
+  public get ColumnType(): typeof ColumnType {
+    return ColumnType;
   }
 
   private configureColumns(columnData: ColumnObject[]): ColumnObject[] {
