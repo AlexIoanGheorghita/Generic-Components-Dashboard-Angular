@@ -29,7 +29,12 @@ export class GenericDialogFactoryService<T = undefined> {
 
   }
 
-  private getOptions(options: DialogOptions): Pick<MatDialogConfig<DialogData<T>>, 'width'> {
-    return { width: `${options.width}px` }
+  private getOptions(options: DialogOptions): Pick<MatDialogConfig<DialogData<T>>, 'width' | 'height' | 'minWidth' | 'minHeight'> {
+    return {
+      width: `${options.width}px`,
+      height: `${options.height}px`,
+      minWidth: `${options.minWidth}px`,
+      minHeight: `${options.minHeight}px`
+    }
   }
 }

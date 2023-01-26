@@ -1,3 +1,6 @@
 export interface DialogOptions<T = undefined> {
-  width: number
+  width?: number,
+  height?: number,
+  minWidth?: number,
+  minHeight?: number
 }
