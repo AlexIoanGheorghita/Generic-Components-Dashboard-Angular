@@ -34,6 +34,9 @@ import { GenericButtonModule } from "../generic-button/generic-button.module";
   ],
   exports: [
     GenericFormComponent,
+    GenericInputComponent,
+    GenericSelectComponent,
+    GenericRadioComponent,
     ReactiveFormsModule
   ]
 })

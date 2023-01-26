@@ -1,12 +1,14 @@
 <div class="form-wrapper">
   <form [formGroup]="formConfiguration.formGroup">
-    <ng-container *ngFor="let field of formConfiguration.formFields">
-      <ng-container [ngSwitch]="field.fieldType">
-        <app-generic-input *ngSwitchCase="FormFieldTypeEnum.INPUT" [inputConfig]="field"></app-generic-input>
-        <app-generic-select *ngSwitchCase="FormFieldTypeEnum.SELECT" [selectConfig]="field"></app-generic-select>
-        <app-generic-radio *ngSwitchCase="FormFieldTypeEnum.RADIO" [radioConfig]="field"></app-generic-radio>
+    <div class="controls-wrapper">
+      <ng-container *ngFor="let field of formConfiguration.formFields">
+        <ng-container [ngSwitch]="field.fieldType">
+          <app-generic-input *ngSwitchCase="FormFieldTypeEnum.INPUT" [inputConfig]="field"></app-generic-input>
+          <app-generic-select *ngSwitchCase="FormFieldTypeEnum.SELECT" [selectConfig]="field"></app-generic-select>
+          <app-generic-radio *ngSwitchCase="FormFieldTypeEnum.RADIO" [radioConfig]="field"></app-generic-radio>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
     <div class="actions-wrapper">
       <app-generic-button
         *ngFor="let button of formConfiguration.formActions"
