@@ -15,6 +15,9 @@ import { DetailsComponent } from './components/details/details.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GridsterModule } from 'angular-gridster2';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [
@@ -24,7 +27,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         DetailsComponent,
         AddItemComponent,
         EditItemComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        DashboardComponent
     ],
     providers: [
       GenericDialogService,
@@ -37,7 +41,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         ReactiveFormsModule,
         SharedModule,
         CommonModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        GridsterModule,
+        MatIconModule
     ]
 })
 export class AppModule { }

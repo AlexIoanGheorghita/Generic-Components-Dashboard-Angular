@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DetailsComponent } from './components/details/details.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { SaveChangesGuard } from './components/edit-item/save-changes.guard';
@@ -12,6 +13,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AdminGuard] },
   { path: 'items/:item_id', component: DetailsComponent, canActivate: [AuthGuard] },
   { path: 'item/add', component: AddItemComponent, canActivate: [AdminGuard] },
   { path: 'items/:item_id/edit', component: EditItemComponent, canActivate: [AdminGuard], canDeactivate: [SaveChangesGuard] },
