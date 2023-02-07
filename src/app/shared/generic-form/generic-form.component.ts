@@ -2,14 +2,19 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { GenericFormConfiguration } from './models/generic-form-configuration.model';
 import { FormFieldTypeEnum } from '../models/input-types.enum';
 
+interface Data {
+  data: any
+}
+
 @Component({
   selector: 'app-generic-form',
   templateUrl: './generic-form.component.html',
   styleUrls: ['./generic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GenericFormComponent implements OnInit {
+export class GenericFormComponent implements OnInit, Data{
   @Input() formConfiguration: GenericFormConfiguration;
+  @Input() data: any;
 
   constructor() {}
 

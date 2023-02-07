@@ -6,5 +6,5 @@ export interface GenericFormConfiguration {
   formId: string,
   formGroup: FormGroup,
   formFields: GenericFormField[],
-  formActions: Button[]
+  formActions?: Button[]
 }
