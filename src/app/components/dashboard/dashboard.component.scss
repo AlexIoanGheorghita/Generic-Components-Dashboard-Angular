@@ -1,7 +1,20 @@
-.grid-stack {
-  background-color: #CCCCCC;
 
-  .grid-stack-item {
-    background-color: white;
-  }
+gridster-item {
+  background-color: white;
+  position: relative;
+}
+
+div.button-holder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+div.widget-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

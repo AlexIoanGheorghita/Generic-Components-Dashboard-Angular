@@ -1,17 +1,6 @@
-<!-- <p><b>COMPONENT dynamic</b>: Best example that uses Component wrapper and dynamic grid creation (drag between grids, from toolbar, etc...)</p>
-  <button (click)="add(gridComp)">add item</button>
-  <button (click)="delete(gridComp)">remove item</button>
-  <button (click)="modify(gridComp)">modify item</button>
-  <button (click)="newLayout(gridComp)">new layout</button>
-  <gridstack #gridComp [options]="gridOptionsFull" (changeGS)="onChange($event)" (resizestop)="onResizeStop($event)">
-  </gridstack> -->
-
-
-  <!-- <form formGroupName="component-form">
-    <app-generic-select [selectConfig]="selectConfig"></app-generic-select>
-  </form> -->
 <div>
   <button
+    mat-button
     (click)="addItem()"
   >
     Add an item
@@ -22,23 +11,44 @@
   <gridster-item [item]="item" *ngFor="let item of grid">
     <div class="button-holder">
       <button
-        mat-mini-fab
-        (mousedown)="removeItem($event, item)"
-        (touchstart)="removeItem($event, item)"
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        (mousedown)="removeSideEffects($event)"
+        (touchstart)="removeSideEffects($event)"
       >
-        <mat-icon>delete</mat-icon>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu>
+        <button
+          mat-menu-item
+          (mousedown)="removeItem($event, item)"
+          (touchstart)="removeItem($event, item)"
+        >Delete
+        </button>
+      </mat-menu>
+    </div>
+    <div class="widget-content">
+      <button
+        mat-mini-fab
+        (mousedown)="addComponent($event)"
+        (touchstart)="addComponent($event)"
+      >
+        <mat-icon>add</mat-icon>
       </button>
     </div>
   </gridster-item>
 </gridster>
 
 <ng-template #componentDialog>
+  <app-generic-stepper [stepperConfig]="stepperConfig"></app-generic-stepper>
+</ng-template>
+
+<!-- <ng-template #step1>
   <app-generic-form [formConfiguration]="componentBuilderFormConfig"></app-generic-form>
 </ng-template>
 
+<ng-template #step2>
+  <app-generic-form [formConfiguration]="componentBuilderFormConfig"></app-generic-form>
+</ng-template>
 
-<!-- <p><b>SIMPLEST</b>: angular example using GridStack API directly, so not really using any angular construct per say other than waiting for DOM rendering</p>
-<button (click)="add()">add item</button>
-<button (click)="delete()">remove item</button>
-<button (click)="change()">modify item</button>
-<div class="grid-stack"></div> -->
+<app-generic-renderer [config]="getConfig()"></app-generic-renderer> -->

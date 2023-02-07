@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { InputDataTypes } from 'src/app/shared/models/input-data-types.enum';
 import { FormFieldTypeEnum } from 'src/app/shared/models/input-types.enum';
 import { GenericFormField } from 'src/app/shared/models/input.model';
@@ -15,6 +15,10 @@ import {
 import { GenericFormConfiguration } from 'src/app/shared/generic-form/models/generic-form-configuration.model';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/services/generic-dialog.service';
 import { GenericDialogFactoryService } from 'src/app/shared/generic-dialog/services/generic-dialog-factory.service';
+import { HeaderService } from 'src/app/shared/header/services/header.service';
+import { StepConfig, StepperConfiguration } from 'src/app/shared/generic-stepper/models/stepper-configuration.model';
+import { GenericFormComponent } from 'src/app/shared/generic-form/generic-form.component';
+import { StepperService } from 'src/app/shared/generic-stepper/services/stepper.service';
 
 
 @Component({
@@ -31,20 +35,27 @@ export class DashboardComponent implements OnInit {
   selectConfig: GenericFormField;
 
   componentBuilderFormConfig: GenericFormConfiguration;
+  stepperConfig: StepperConfiguration;
   matDialog: GenericDialogService;
 
   @ViewChild('componentDialog', { static: false }) componentDialog: TemplateRef<any>;
+  // @ViewChild('step1', { static: false }) stepOne: TemplateRef<any>;
+  // @ViewChild('step2', { static: false }) stepTwo: TemplateRef<any>;
 
   constructor(
-    private dialogFactoryService: GenericDialogFactoryService
+    private dialogFactoryService: GenericDialogFactoryService,
+    private headerService: HeaderService,
+    private stepperService: StepperService
   ) {}
 
   ngOnInit() {
-    this.initSelect();
+    this.headerService.title.next('Dashboard');
 
     this.gridOptions = {
       compactType: CompactType.None,
-      gridType: GridType.Fixed,
+      gridType: GridType.ScrollVertical,
+      minCols: 8,
+      maxCols: 8,
       pushItems: true,
       draggable: {
         enabled: true
@@ -74,6 +85,29 @@ export class DashboardComponent implements OnInit {
   }
 
   addItem(): void {
+    this.grid.push({ x: 0, y: 0, cols: 1, rows: 1 });
+  }
+
+  removeItem($event: MouseEvent | TouchEvent, item: GridsterItem): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.grid.splice(this.grid.indexOf(item), 1);
+  }
+
+  removeSideEffects($event: MouseEvent | TouchEvent): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
+  addComponent($event: MouseEvent | TouchEvent): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.initSelect();
+    this.stepperConfig = this.stepperService.initStepper(
+      'component-builder-stepper',
+      this.initFirstStep(),
+      ['Create a component', 'Configure component', 'Complete configuration']
+    );
     this.matDialog = this.dialogFactoryService.open(
       {
         title: 'Create a component',
@@ -83,25 +117,85 @@ export class DashboardComponent implements OnInit {
         minWidth: 100,
         minHeight: 200
       }
-    )
-
-    // this.grid.push({ x: 0, y: 0, cols: 1, rows: 1 });
+    );
   }
 
-  removeItem($event: MouseEvent | TouchEvent, item: GridsterItem): void {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.grid.splice(this.grid.indexOf(item), 1);
-  }
+  // private initStepper(id: string, stepOne: StepConfig, steps: number, stepTitle: string[]): void {
+  //   this.stepperService.initStepper('component-builder-stepper',)
+
+  //   this.stepperConfig = {
+  //     stepperId: 'component-builder-stepper',
+  //     steps: [
+  //       {
+  //         title: 'Choose a component type',
+  //         errorMessage: 'You need to choose a component type',
+  //         config: {
+  //           componentDataType: GenericFormComponent,
+  //           componentConfig: this.componentBuilderFormConfig,
+  //           componentInput: 'formConfiguration'
+  //         },
+  //         // content: {
+  //         //   template: this.stepOne,
+  //         //   data: { value: this.componentBuilderFormConfig, type: ComponentType.FORM }
+  //         // },
+  //         control: this.componentBuilderFormConfig.formGroup,
+  //         buttons: [
+  //           {
+  //             text: 'Next',
+  //             role: 'next',
+  //             config: {
+  //               color: '#FFFFFF',
+  //               backgroundColor: '#4d4dff',
+  //               fontSize: 16,
+  //               borderRadius: 5
+  //             },
+  //             action: () => {
+  //               console.log('Next');
+  //             }
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         title: 'Choose a component type',
+  //         errorMessage: 'You need to choose a component type',
+  //         config: {
+  //           componentDataType: GenericFormComponent,
+  //           componentConfig: this.componentBuilderFormConfig,
+  //           componentInput: 'formConfiguration'
+  //         },
+  //         // content: {
+  //         //   template: this.stepTwo,
+  //         //   data: { value: this.componentBuilderFormConfig, type: ComponentType.FORM }
+  //         // },
+  //         control: this.componentBuilderFormConfig.formGroup,
+  //         buttons: [
+  //           {
+  //             text: 'Back',
+  //             role: 'back',
+  //             config: {
+  //               color: '#FFFFFF',
+  //               backgroundColor: '#4d4dff',
+  //               fontSize: 16,
+  //               borderRadius: 5
+  //             },
+  //             action: () => {
+  //               console.log('Back');
+  //             }
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   }
+  // }
 
   private initSelect(): void {
     this.componentBuilderFormConfig = {
-      formId: 'add-item-form',
+      formId: 'select-component-form',
       formGroup: new FormGroup({}),
       formFields: [
         {
           formFieldId: 'component-selector',
-          formControl: new FormControl(null, []),
+          formControl: new FormControl(null, [Validators.required]),
           title: 'Component',
           placeholder: 'Select a component',
           required: true,
@@ -121,10 +215,28 @@ export class DashboardComponent implements OnInit {
             }
           })
         },
-      ],
-      formActions: [
+      ]
+    }
+  }
+
+  private initFirstStep(): StepConfig {
+    return {
+      title: 'Choose a component type',
+      errorMessage: 'You need to choose a component type',
+      config: {
+        componentDataType: GenericFormComponent,
+        componentConfig: this.componentBuilderFormConfig,
+        componentInput: 'formConfiguration'
+      },
+      // content: {
+      //   template: this.stepOne,
+      //   data: { value: this.componentBuilderFormConfig, type: ComponentType.FORM }
+      // },
+      control: this.componentBuilderFormConfig.formGroup,
+      buttons: [
         {
-          text: 'Add Component',
+          text: 'Next',
+          role: 'next',
           config: {
             color: '#FFFFFF',
             backgroundColor: '#4d4dff',
@@ -132,7 +244,7 @@ export class DashboardComponent implements OnInit {
             borderRadius: 5
           },
           action: () => {
-            console.log('Add');
+            console.log('Next');
           }
         }
       ]
