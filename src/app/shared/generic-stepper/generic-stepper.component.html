@@ -1,0 +1,15 @@
+<mat-stepper #stepper linear>
+  <mat-step *ngFor="let step of config.steps" [stepControl]="step.control" [errorMessage]="step.errorMessage ?? 'Step not filled in correctly'">
+    <ng-template matStepLabel>{{ step.title }}</ng-template>
+    <!-- <ng-container
+      [ngTemplateOutlet]="step.content.template"
+      [ngTemplateOutletContext]="{ data: { value: step.content.data.value, type: step.content.data.type }}"
+    ></ng-container> -->
+    <app-generic-renderer [config]="step.config"></app-generic-renderer>
+    <div>
+      <ng-container *ngFor="let button of step.buttons">
+        <app-generic-button [buttonConfig]="button"></app-generic-button>
+      </ng-container>
+    </div>
+  </mat-step>
+</mat-stepper>
