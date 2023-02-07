@@ -11,11 +11,17 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatMenuModule } from '@angular/material/menu';
 import { GetKeysPipe } from "./pipes/getkey.pipe";
 import { GenericFormModule } from "./generic-form/generic-form.module";
 import { RouterModule } from "@angular/router";
 import { GenericChartModule } from './generic-chart/generic-chart.module';
 import { NgChartsModule } from "ng2-charts";
+import { GenericStepperComponent } from './generic-stepper/generic-stepper.component';
+import { GenericButtonModule } from "./generic-button/generic-button.module";
+import { GenericRendererComponent } from './generic-renderer/generic-renderer.component';
+import { PlaceholderDirective } from "./directives/placeholder.directive";
 
 @NgModule({
   imports: [
@@ -30,14 +36,20 @@ import { NgChartsModule } from "ng2-charts";
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatMenuModule,
+    MatStepperModule,
     GenericFormModule,
     NgChartsModule,
     GenericChartModule,
+    GenericButtonModule,
     RouterModule
   ],
   declarations: [
     HeaderComponent,
-    GetKeysPipe
+    GetKeysPipe,
+    GenericStepperComponent,
+    PlaceholderDirective,
+    GenericRendererComponent
   ],
   exports: [
     GenericTableModule,
@@ -50,10 +62,14 @@ import { NgChartsModule } from "ng2-charts";
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatMenuModule,
+    MatStepperModule,
     GenericFormModule,
     GenericChartModule,
     NgChartsModule,
     HeaderComponent,
+    GenericStepperComponent,
+    GenericRendererComponent,
     GetKeysPipe
   ]
 })
