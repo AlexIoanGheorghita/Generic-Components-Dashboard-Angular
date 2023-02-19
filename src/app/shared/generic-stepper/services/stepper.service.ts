@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ComponentType } from "src/app/components/dashboard/models/component-type.enum";
 import { Button } from "../../generic-button/models/button.model";
 import { GenericFormComponent } from "../../generic-form/generic-form.component";
@@ -9,6 +9,8 @@ import { InputDataTypes } from "../../models/input-data-types.enum";
 import { FormFieldTypeEnum } from "../../models/input-types.enum";
 import { StepConfig, StepperConfiguration } from "../models/stepper-configuration.model";
 import { ChartTypeRegistry } from "chart.js";
+import { FormControlType } from "../../generic-form/models/form-control-type.enum";
+import { FORM_BUILDER_GROUP_CONFIGURATION } from "../../models/form-builder-config.const";
 
 declare const chartType: ChartTypeRegistry;
 
@@ -30,7 +32,20 @@ export class StepperService {
     if (stepIndex < this.stepperConfig.steps.length) {
       switch (componentType) {
         case ComponentType.FORM:
-          config.componentConfig = FORM_CONFIGURATION;
+          config.componentConfig = {
+            formId: 'form-configuration-form',
+            formGroup: new FormGroup({}),
+            formFields: [
+              {
+                formFieldId: 'form-type',
+                formControl: new FormArray([]),
+                formControlType: FormControlType.FORM_ARRAY,
+                formFields: [
+                  FORM_BUILDER_GROUP_CONFIGURATION
+                ]
+              },
+            ]
+          };
           break;
         case ComponentType.TABLE:
           config.componentConfig = {
@@ -40,6 +55,7 @@ export class StepperService {
               {
                 formFieldId: 'columns-number',
                 formControl: new FormControl(null, [Validators.required, Validators.max(20)]),
+                formControlType: FormControlType.FORM_CONTROL,
                 title: 'Number of columns',
                 placeholder: '',
                 required: true,
@@ -65,6 +81,7 @@ export class StepperService {
               {
                 formFieldId: 'chart-type',
                 formControl: new FormControl(null, [Validators.required]),
+                formControlType: FormControlType.FORM_CONTROL,
                 title: 'Number of columns',
                 placeholder: '',
                 required: true,

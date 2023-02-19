@@ -61,6 +61,7 @@ export class GenericStepperComponent implements OnInit {
       if (this.config.steps[this.selectedIndex].control.valid) {
         this.selectedIndex++;
         if (!this.config.steps[this.selectedIndex].control.touched) {
+          console.log(this.config.steps[0].config.componentConfig.formGroup.value['component-selector']);
           this.config.steps[this.selectedIndex] = this.stepperService.configureStep(this.selectedIndex, this.config.steps[0].config.componentConfig.formGroup.value['component-selector']);
         }
         this.stepper.next();
