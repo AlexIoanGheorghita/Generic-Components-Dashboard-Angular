@@ -1,4 +1,5 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControlType } from "../generic-form/models/form-control-type.enum";
 import { GenericFormConfiguration } from "../generic-form/models/generic-form-configuration.model";
 import { EyeColor } from "./eye-color.enum";
 import { Gender } from "./gender.enum";
@@ -50,6 +51,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'name',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Name',
       placeholder: 'Enter name',
       value: '',
@@ -67,6 +69,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'height',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Height',
       placeholder: 'Enter height',
       value: '',
@@ -84,6 +87,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'mass',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Mass',
       placeholder: 'Enter mass',
       value: '',
@@ -101,6 +105,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'hair_color',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Hair Color',
       placeholder: 'Enter hair color',
       value: HairColor.NOTAPPLICABLE,
@@ -119,6 +124,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'skin_color',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Skin Color',
       placeholder: 'Enter skin color',
       value: SkinColor.NOTAPPLICABLE,
@@ -137,6 +143,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'eye_color',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Eye Color',
       placeholder: 'Enter eye color',
       value: EyeColor.NOTAPPLICABLE,
@@ -155,6 +162,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'birth_year',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Birth Year',
       placeholder: 'Enter birth year',
       required: true,
@@ -171,6 +179,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'gender',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Gender',
       placeholder: 'Enter gender',
       required: true,
@@ -187,6 +196,7 @@ export const FORM_CONFIGURATION: GenericFormConfiguration = {
     {
       formFieldId: 'hobbies',
       formControl: new FormControl('', [Validators.required]),
+      formControlType: FormControlType.FORM_CONTROL,
       title: 'Hobbies',
       placeholder: 'Enter hobbies',
       required: true,
