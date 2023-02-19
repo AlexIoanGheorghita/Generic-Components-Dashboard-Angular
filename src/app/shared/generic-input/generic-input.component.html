@@ -10,7 +10,7 @@
     <ng-template #normalInput>
       <input
         [type]="inputConfig.fieldDataType ?? 'text'"
-        [placeholder]="inputConfig.placeholder"
+        [placeholder]="inputConfig.placeholder!"
         [name]="inputConfig.formFieldId"
         [value]="inputConfig.value"
         [formControl]="control"

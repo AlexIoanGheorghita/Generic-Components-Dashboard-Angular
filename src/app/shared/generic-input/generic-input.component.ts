@@ -22,11 +22,11 @@ export class GenericInputComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.control = this.rootFormGroup.control.get(this.inputConfig.formFieldId) as FormControl;
-    this.errorMessage = this.inputConfig.validations.find(item => item.validationType === 'required')?.errorMessage;
+    this.errorMessage = this.inputConfig.validations!.find(item => item.validationType === 'required')?.errorMessage;
 
     this.statusSub = this.control.statusChanges.pipe(distinctUntilChanged()).subscribe(status => {
       if (status === 'INVALID') {
-        this.errorMessage = this.inputConfig.validations.find(item => {
+        this.errorMessage = this.inputConfig.validations!.find(item => {
           return item.validationType === Object.keys(this.control.errors!)[0]
         })?.errorMessage;
       }
