@@ -19,6 +19,7 @@ import { HeaderService } from 'src/app/shared/header/services/header.service';
 import { StepConfig, StepperConfiguration } from 'src/app/shared/generic-stepper/models/stepper-configuration.model';
 import { GenericFormComponent } from 'src/app/shared/generic-form/generic-form.component';
 import { StepperService } from 'src/app/shared/generic-stepper/services/stepper.service';
+import { FormControlType } from 'src/app/shared/generic-form/models/form-control-type.enum';
 
 
 @Component({
@@ -196,6 +197,7 @@ export class DashboardComponent implements OnInit {
         {
           formFieldId: 'component-selector',
           formControl: new FormControl(null, [Validators.required]),
+          formControlType: FormControlType.FORM_CONTROL,
           title: 'Component',
           placeholder: 'Select a component',
           required: true,
