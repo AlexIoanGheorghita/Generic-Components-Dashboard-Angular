@@ -2,11 +2,47 @@
   <form [formGroup]="formConfiguration.formGroup">
     <div class="controls-wrapper">
       <ng-container *ngFor="let field of formConfiguration.formFields">
-        <ng-container [ngSwitch]="field.fieldType">
-          <app-generic-input *ngSwitchCase="FormFieldTypeEnum.INPUT" [inputConfig]="field"></app-generic-input>
-          <app-generic-select *ngSwitchCase="FormFieldTypeEnum.SELECT" [selectConfig]="field"></app-generic-select>
-          <app-generic-radio *ngSwitchCase="FormFieldTypeEnum.RADIO" [radioConfig]="field"></app-generic-radio>
+        <ng-container *ngIf="field.formFields; else normalField">
+          <ng-container *ngIf="field.formControlType === FormControlType.FORM_GROUP; else formArray">
+            <div [formGroup]="field.formControl | formGroup">
+              <ng-container *ngFor="let subfield of field.formFields">
+                <ng-container [ngSwitch]="subfield.fieldType">
+                  <app-generic-input *ngSwitchCase="FormFieldTypeEnum.INPUT" [inputConfig]="subfield"></app-generic-input>
+                  <app-generic-select *ngSwitchCase="FormFieldTypeEnum.SELECT" [selectConfig]="subfield"></app-generic-select>
+                  <app-generic-radio *ngSwitchCase="FormFieldTypeEnum.RADIO" [radioConfig]="subfield"></app-generic-radio>
+                </ng-container>
+              </ng-container>
+            </div>
+          </ng-container>
+
+          <ng-template #formArray>
+            <div [formArrayName]="field.formFieldId">
+              <ng-container *ngFor="let control of getFormArray(field.formFieldId).controls; let i = index">
+                <div [formGroup]="control | formGroup">
+                  <ng-container *ngFor="let subField of field.formFields[i].formFields">
+                    <ng-container [ngSwitch]="subField.fieldType">
+                      <app-generic-input *ngSwitchCase="FormFieldTypeEnum.INPUT" [inputConfig]="subField"></app-generic-input>
+                      <app-generic-select *ngSwitchCase="FormFieldTypeEnum.SELECT" [selectConfig]="subField"></app-generic-select>
+                      <app-generic-radio *ngSwitchCase="FormFieldTypeEnum.RADIO" [radioConfig]="subField"></app-generic-radio>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <app-generic-button
+                  [buttonConfig]="field.formFields[i].formControlActions![0]"
+                ></app-generic-button>
+              </ng-container>
+              <button (click)="onPushToFormArray(field.formFieldId)">Add Group</button>
+            </div>
+          </ng-template>
         </ng-container>
+
+        <ng-template #normalField>
+          <ng-container [ngSwitch]="field.fieldType">
+            <app-generic-input *ngSwitchCase="FormFieldTypeEnum.INPUT" [inputConfig]="field"></app-generic-input>
+            <app-generic-select *ngSwitchCase="FormFieldTypeEnum.SELECT" [selectConfig]="field"></app-generic-select>
+            <app-generic-radio *ngSwitchCase="FormFieldTypeEnum.RADIO" [radioConfig]="field"></app-generic-radio>
+          </ng-container>
+        </ng-template>
       </ng-container>
     </div>
     <div class="actions-wrapper">

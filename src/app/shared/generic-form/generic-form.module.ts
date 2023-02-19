@@ -11,13 +11,15 @@ import { GenericSelectComponent } from "../generic-select/generic-select.compone
 import { GenericFormComponent } from "./generic-form.component";
 import { GenericRadioComponent } from "../generic-radio/generic-radio.component";
 import { GenericButtonModule } from "../generic-button/generic-button.module";
+import { FormGroupPipe } from "./pipes/formGroup.pipe";
 
 @NgModule({
   declarations: [
     GenericFormComponent,
     GenericInputComponent,
     GenericSelectComponent,
-    GenericRadioComponent
+    GenericRadioComponent,
+    FormGroupPipe
   ],
   imports: [
     ReactiveFormsModule,
@@ -37,6 +39,7 @@ import { GenericButtonModule } from "../generic-button/generic-button.module";
     GenericInputComponent,
     GenericSelectComponent,
     GenericRadioComponent,
+    FormGroupPipe,
     ReactiveFormsModule
   ]
 })
