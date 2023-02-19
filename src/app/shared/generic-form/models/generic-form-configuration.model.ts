@@ -6,5 +6,6 @@ export interface GenericFormConfiguration {
   formId: string,
   formGroup: FormGroup,
   formFields: GenericFormField[],
+  editable?: boolean,
   formActions?: Button[]
 }
