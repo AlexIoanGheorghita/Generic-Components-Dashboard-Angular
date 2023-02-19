@@ -24,11 +24,11 @@ export class GenericSelectComponent implements OnInit, OnDestroy {
     }
     this.control = this.rootFormGroup.control.get(this.selectConfig.formFieldId) as FormControl;
 
-    this.errorMessage = this.selectConfig.validations.find(item => item.validationType === 'required')?.errorMessage;
+    this.errorMessage = this.selectConfig.validations!.find(item => item.validationType === 'required')?.errorMessage;
 
     this.statusSub = this.control.statusChanges.pipe(distinctUntilChanged()).subscribe(status => {
       if (status === 'INVALID') {
-        this.errorMessage = this.selectConfig.validations.find(item => {
+        this.errorMessage = this.selectConfig.validations!.find(item => {
           return item.validationType === Object.keys(this.control.errors!)[0]
         })?.errorMessage;
       }
